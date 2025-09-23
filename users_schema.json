@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Users Collection Schema",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier for the user"
+    },
+    "display_name": {
+      "type": "string",
+      "description": "User\u2019s display name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "User\u2019s email address"
+    },
+    "hometown": {
+      "type": "string",
+      "description": "User\u2019s hometown"
+    },
+    "birthday": {
+      "type": "string",
+      "format": "date-time",
+      "description": "User\u2019s birthday (timestamp)"
+    },
+    "created_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of user creation"
+    }
+  },
+  "required": [
+    "uid",
+    "display_name",
+    "email",
+    "created_time"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tasks Collection Schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the task"
+    },
+    "details": {
+      "type": "string",
+      "description": "Detailed description of the task"
+    },
+    "completed": {
+      "type": "boolean",
+      "description": "Whether the task is completed"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the task was created"
+    },
+    "user": {
+      "type": "string",
+      "pattern": "^/Users/[A-Za-z0-9_-]+$",
+      "description": "Reference path to the user document"
+    }
+  },
+  "required": [
+    "title",
+    "completed",
+    "created",
+    "user"
+  ]
+}
