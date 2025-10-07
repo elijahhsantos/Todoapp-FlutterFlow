@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/add_task_widget.dart';
 import '/components/individual_task_widget.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'tasks_model.dart';
 export 'tasks_model.dart';
@@ -29,6 +31,24 @@ class _TasksWidgetState extends State<TasksWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TasksModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.apiResultl77 = await GetQuoteCall.call();
+
+      if ((_model.apiResultl77?.succeeded ?? true)) {
+        _model.quote = GetQuoteCall.quote(
+          (_model.apiResultl77?.jsonBody ?? ''),
+        )!;
+        _model.author = valueOrDefault<String>(
+          GetQuoteCall.author(
+            (_model.apiResultl77?.jsonBody ?? ''),
+          ),
+          'author',
+        );
+        safeSetState(() {});
+      }
+    });
   }
 
   @override
@@ -126,7 +146,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                               ),
                     ),
                   ),
-                  Expanded(
+                  Flexible(
                     child: StreamBuilder<List<TasksRecord>>(
                       stream: queryTasksRecord(
                         queryBuilder: (tasksRecord) => tasksRecord
